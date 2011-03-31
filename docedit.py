@@ -30,6 +30,7 @@ DOCURL = '/static/'
 import os
 def listfiles():
   # . GET output links for files available for editing
+  # [ ] throw up strategy if dir is not found / error occured
   paths = []
   for root, dirs, files in os.walk(DOCDIR):
     for name in files:
