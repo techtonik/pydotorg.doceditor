@@ -31,14 +31,35 @@ def edit(filename=None):
 
 
 if __name__ == '__main__':
-  # -- command line framefork --
+  # --== command line framefork ==--
   # 
   # this framework allows to inspect available actions
   # and test them from command line
   #
-  actions = [a for a in dir() if not a.startswith('_')]
-  if actions:
-    print "Available actions:"
-    for a in actions:
-      print "- %s" % a
-      # [ ] print definition / prototype
+
+  # -- get actions list
+  import inspect
+  # no module name - can't use getmembers()
+  #print inspect.getmembers(module, inspect.isfunction)
+  actions = [locals()[a] for a in dir() if not a.startswith('__')]
+  actions = [a for a in actions if inspect.isfunction(a)]
+
+  # -- process commands
+  import sys
+  if len(sys.argv) == 1:
+    # - no args - print available actions
+    if actions:
+      print sys.argv[0] + ' <action> [params]\n'
+      # [ ] params processing
+      print "Available actions:"
+      for a in actions:
+        print "- %s()" % a.__name__
+        # [ ] print definition (prototype)
+  else:
+    # - action is specified - execute it
+    action = sys.argv[1]
+    if not action in [a.__name__ for a in actions]:
+      sys.exit("Error: no such action '%s'" % action)
+    print "Executing action '%s'" % action
+    print locals()[action]()
+
