@@ -5,10 +5,13 @@ See app/README.rst for setup instructions
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
+from app import docedit
+
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        self.response.out.write('<a href="/docedit">DocEdit Version 0.1</a>')
+        applink = ('/docedit', 'DocEdit Version %s' % docedit.__version__)
+        self.response.out.write('<a href="%s">%s</a>' % applink)
         # [ ] make this link to action through function
         #     to avoid grepping when link changes
 

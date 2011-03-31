@@ -27,6 +27,10 @@ DOCURL = '/static/'
 # --- /config ---
 
 
+# [ ] insert auto-updated consecutive revision (ok to be project wide)
+__version__ = '0.1'
+
+
 import os
 def listfiles():
   # . GET output links for files available for editing
