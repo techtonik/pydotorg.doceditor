@@ -11,6 +11,13 @@ http://bugs.python.org/issue?@template=item&components=4
 #import webbrowser
 #import webserver
 
+
+def listfiles():
+  # . GET output links for files available for editing
+
+  pass
+
+
 def edit(filename=None):
   # . GET
   #  . if filename is not available - show list of files
