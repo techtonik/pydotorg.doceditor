@@ -11,11 +11,30 @@ http://bugs.python.org/issue?@template=item&components=4
 #import webbrowser
 #import webserver
 
+"""
+implementation requirements and details:
+ 1. docs are available from static dir and served directly
+ 2. script needs access to this dir to list all files (DOCDIR)
+ 3. script requires DOCURL config, because expicit static path
+    is better than implicit
+"""
 
+# --- config ---
+# docdir is path with files
+# docurl is the URL to fetch these files
+DOCDIR = 'docs/'
+DOCURL = '/static/'
+# --- /config ---
+
+
+import os
 def listfiles():
   # . GET output links for files available for editing
-
-  pass
+  paths = []
+  for root, dirs, files in os.walk(DOCDIR):
+    for name in files:
+      paths.append(root + name)
+  return [DOCURL + p for p in paths]
 
 
 def edit(filename=None):
