@@ -20,8 +20,8 @@ implementation requirements and details:
 """
 
 # --- config ---
-# docdir is path with files
-# docurl is the URL to fetch these files
+# docdir is path to scan for files to load in editor
+# docurl is the URL where these files can be fetched
 DOCDIR = 'docs/'
 DOCURL = '/static/'
 # --- /config ---
@@ -37,8 +37,10 @@ def listfiles():
   # [ ] throw up strategy if dir is not found / error occured
   paths = []
   for root, dirs, files in os.walk(DOCDIR):
+    assert(root.startswith(DOCDIR))
+    # [ ] throw up strategy
     for name in files:
-      paths.append(root + name)
+      paths.append(root.replace(DOCDIR, '', 1) + name)
   return [DOCURL + p for p in paths]
 
 

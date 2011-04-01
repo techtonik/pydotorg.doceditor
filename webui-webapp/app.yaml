@@ -4,5 +4,13 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: /static/docs/
+  mime_type: text/plain
+  static_dir: app/docs
+
+- url: /static/docs
+  mime_type: text/plain
+  static_dir: app/docs
+
 - url: .*
   script: main.py

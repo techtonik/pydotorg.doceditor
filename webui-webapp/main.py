@@ -5,7 +5,12 @@ See app/README.rst for setup instructions
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
+# --- docedit import and configuration ---
 from app import docedit
+
+docedit.DOCDIR = 'app/docs/'
+docedit.DOCURL = '/static/docs/'
+# --- / ---
 
 
 class MainPage(webapp.RequestHandler):
@@ -17,7 +22,14 @@ class MainPage(webapp.RequestHandler):
 
 class DocEdit(webapp.RequestHandler):
     def get(self):
-        self.response.out.write('Still writing..')
+        # [ ] add debug messages
+        self.response.out.write('<h4>documentation sources on this server</h4>\n')
+        # [ ] or choose remote one
+        self.response.out.write('<ul>')
+        for link in docedit.listfiles():
+            self.response.out.write('<li><a href="%s">%s</a></li>' % (link, link))
+            # [ ] backurl function is needed
+        self.response.out.write('</ul>')
 
 
 urlmap = [
