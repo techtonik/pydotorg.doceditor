@@ -3,7 +3,9 @@ See app/README.rst for setup instructions
 """
 
 import cgi
+import os
 from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 # --- docedit import and configuration ---
@@ -14,11 +16,22 @@ docedit.DOCURL = '/static/docs/'
 # --- / ---
 
 
+TEMPLATES = os.path.join(os.path.dirname(__file__), 'templates')
+
+def render(tpl, values):
+    return template.render(os.path.join(TEMPLATES, tpl), values)
+
+
 class MainPage(webapp.RequestHandler):
     def get(self):
-        applink = ('/docedit', 'DocEdit Version %s' % docedit.__version__)
-        self.response.out.write('<a href="%s">%s</a>' % applink)
-        # [ ] make this link to action through function
+        values = {
+            'applink': {
+                'href':'/docedit',
+                'title':'DocEdit Version %s' % docedit.__version__
+            },
+        }
+        self.response.out.write(render('main.html', values))
+        # [ ] main.html contains link to action that is better to generate
         #     to avoid grepping when link changes
 
 class DocEdit(webapp.RequestHandler):
