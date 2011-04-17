@@ -25,10 +25,8 @@ def render(tpl, values):
 class MainPage(webapp.RequestHandler):
     def get(self):
         values = {
-            'applink': {
-                'href':'/docedit',
-                'title':'DocEdit Version %s' % docedit.__version__
-            },
+            'applink': '/docedit',
+            'applink_text':'DocEdit Version %s' % docedit.__version__,
         }
         self.response.out.write(render('main.html', values))
         # [ ] main.html contains link to action that is better to generate
