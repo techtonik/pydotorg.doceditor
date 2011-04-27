@@ -40,22 +40,24 @@ class DocEdit(webapp.RequestHandler):
         """
         # [ ] add debug messages
         pagename = self.request.get('page')
+        values = {}
         if not pagename:
             # show index page
-            self.response.out.write('<h4>documentation sources on this server</h4>\n')
             # [ ] or choose remote one
-            self.response.out.write('<ul>')
-            for link in docedit.listfiles():
-                self.response.out.write('<li><a href="%s">%s</a></li>' % (link, link))
-                # [ ] backurl function is needed
-            self.response.out.write('</ul>')
+            values = dict(
+                title = 'documentation sources on this server',
+                pagelist = docedit.listfiles(),
+                # [ ] need backurl function
+            )
         elif pagename not in docedit.listfiles():
             # show error page 
             # [ ] link to the code where the error occured
-            self.response.out.write('invalid page name: %s' % cgi.escape(pagename))
+            values['error'] = 'invalid page name: %s' % cgi.escape(pagename)
         else:
             # show editor page
-            self.response.out.write('a sophisticated editor for %s' % cgi.escape(pagename))
+            # [ ] add unittests
+            values['error'] = 'a sophisticated editor for %s' % cgi.escape(pagename)
+        self.response.out.write(render('docedit.html', values))
 
 
 urlmap = [
