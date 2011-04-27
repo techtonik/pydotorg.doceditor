@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
+  <head>
+{% if pagename %}{# load editor for the page #}
+    <script src="lib/codemirror/codemirror.js"></script>
+{% endif %}
+  </head>
+
+
   <body>
 {% if title %}<h4>{{title}}</h4>{% endif %}
 
 {% if error %}<div class='error'>{{error}}</div>{% endif %}
+
 
 {% if pagelist %}
 <ul class='pagelist'>
@@ -12,6 +20,11 @@
   {% endfor %}
 </ul>
 {% endif %}
+
+
+{% if pagename %}{# editor #}
+{% endif %}
+
 
   </body>
 </html>

@@ -55,7 +55,10 @@ class DocEdit(webapp.RequestHandler):
         else:
             # show editor page
             # [ ] add unittests
-            values['error'] = 'a sophisticated editor for %s' % cgi.escape(pagename)
+            values = dict(
+                title = 'a sophisticated editor for %s' % cgi.escape(pagename),
+                pagename = pagename,
+            )
         self.response.out.write(render('docedit.html', values))
 
 

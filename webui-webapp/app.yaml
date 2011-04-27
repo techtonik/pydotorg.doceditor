@@ -12,5 +12,8 @@ handlers:
   mime_type: text/plain
   static_dir: app/docs
 
+- url: /lib
+  static_dir: lib
+
 - url: .*
   script: main.py
