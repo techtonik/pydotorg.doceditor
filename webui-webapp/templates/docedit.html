@@ -4,6 +4,12 @@
 {% if pagename %}{# load editor for the page #}
     <script src="lib/jquery.min.js"></script>
     <script src="lib/codemirror/codemirror.js"></script>
+    <link rel="stylesheet" href="lib/codemirror/codemirror.css">
+  {% if pagename|slice:"-3:" == "rst" %}
+    <script src="lib/codemirror/mode/rst/rst.js"></script>
+    <link rel="stylesheet" href="lib/codemirror/mode/rst/rst.css">
+    {# [ ] custom style for rst mode #}
+  {% endif %}
 {% endif %}
   </head>
 
@@ -24,6 +30,16 @@
 
 
 {% if pagename %}{# editor #}
+<script type="text/javascript">
+var cm; // placeholder for CodeMirror editor object
+
+$(document).ready(function() {
+  cm = CodeMirror(document.body);
+  $.get("{{pagename}}", function(data) {
+    cm.setValue(data);
+  });
+});
+</script>
 {% endif %}
 
 
