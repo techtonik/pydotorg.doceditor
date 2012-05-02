@@ -23,7 +23,7 @@
 {% if pagelist %}
 <ul class='pagelist'>
   {% for page in pagelist %}
-  <li><a href="{% url DocEdit %}?page={{page}}">{{page}}</a></li>
+  <li><a href="{{ actionurl }}?page={{page}}">{{page}}</a></li>
   {% endfor %}
 </ul>
 {% endif %}
